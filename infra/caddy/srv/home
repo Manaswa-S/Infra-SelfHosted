@@ -89,6 +89,7 @@
       font-size: 0.8rem;
       color: var(--muted);
     }
+    
   </style>
 </head>
 <body>
