@@ -1,0 +1,32 @@
+services:
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    environment:
+      CADDY_EMAIL: ${CADDY_EMAIL}
+      CADDY_BASIC_AUTH: ${CADDY_BASIC_AUTH}
+      DOMAIN_HOST: ${DOMAIN_HOST}
+      DOMAIN_PROMETHEUS: ${DOMAIN_PROMETHEUS}
+      DOMAIN_GRAFANA: ${DOMAIN_GRAFANA}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    networks:
+      - edge_net
+    volumes:
+      - ./conf:/etc/caddy
+      - ./srv:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+
+networks:
+  edge_net:
+    external: true
+
+volumes:
+  caddy_data:
+  caddy_config:
+

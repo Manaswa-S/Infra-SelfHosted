@@ -1,0 +1,70 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: joplin-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # health check
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      retries: 5
+    networks:
+      - db
+    volumes:
+      - 'postgres:/var/lib/postgresql/data:rw'
+
+  joplin:
+    image: joplin/server:latest
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: 'service_healthy'
+    ports:
+      - "22300:22300"
+    # health check
+    healthcheck:
+      # test: ["CMD-SHELL", "curl -f http://localhost:22300/api/ping"]
+      test: ["CMD-SHELL", "exit 0"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - db
+    environment:
+      APP_BASE_URL: ${APP_BASE_URL}
+      APP_PORT: ${APP_PORT}
+
+      DB_CLIENT: ${DB_CLIENT}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  nginx:
+    image: "nginx:mainline-alpine"
+    restart: unless-stopped
+    depends_on:
+      joplin:
+        condition: 'service_healthy'
+    user: "0"
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "/etc/letsencrypt/live/joplin.mnswa.me-0001/fullchain.pem:/etc/certs/selfsigned.crt:ro"
+      - "/etc/letsencrypt/live/joplin.mnswa.me-0001/privkey.pem:/etc/certs/selfsigned.key:ro"
+    ports:
+      - "443:443"
+    networks:
+      - db
+
+
+networks:
+  db:
+
+volumes:
+  postgres:

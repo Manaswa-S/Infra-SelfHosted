@@ -1,0 +1,35 @@
+{
+    metrics
+    admin 0.0.0.0:2019
+    email {$CADDY_EMAIL}
+}
+
+(logging) {
+	log {
+		output file /var/log/{args[0]}.log
+		format json
+	}
+}
+
+(basicAuth) {
+    basic_auth {
+        {$CADDY_BASIC_AUTH}
+    }
+}
+
+{$DOMAIN_HOST} {
+    import logging host
+    import basicAuth
+    
+    # templates
+    root * /srv
+    file_server browse
+    encode gzip zstd
+}
+
+{$DOMAIN_GRAFANA} {
+    import logging grafana
+    import basicAuth
+
+    reverse_proxy grafana:3000
+}

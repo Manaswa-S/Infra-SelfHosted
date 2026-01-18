@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MNS · Self-Hosted</title>
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="home.css">
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --fg: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --card: #161b22;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 720px;
+      width: 90%;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      margin: 0 0 16px 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .status {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .badge {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .links {
+      margin-top: 24px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Self-Hosted Infrastructure</h1>
+      <br>
+      <p>
+        Welcome, this server runs a collection of self-hosted services,
+        deployed and maintained manually for learning, control, and fun.
+      </p>
+
+      <div class="status">
+        <span class="badge">Caddy</span>
+        <span class="badge">Prometheus</span>
+        <span class="badge">Grafana</span>
+        <span class="badge">Docker</span>
+      </div>
+
+      <div class="links">
+        <a href="https://grafana.mnswa.me" target="_blank">Grafana</a>
+      </div>
+
+      <footer>
+        <p>Operated by MNS · No Cloud Magic · Just Servers</p>
+        <a href="https://mnswa.me" style="font-weight: 500;" target="_blank">Portfolio</a>
+        <!-- <p>{{.Time}} · {{.RemoteAddr}} · {{.Host}} {{placeholder "http.request.uri.path"}}</p> -->
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
