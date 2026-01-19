@@ -38,5 +38,13 @@
     import logging gitea
     import basicAuth
 
-    reverse_proxy gitea:3000
+    reverse_proxy gitea:3090
+}
+
+
+{$DOMAIN_N8N} {
+    import logging n8n
+    import basicAuth
+
+    reverse_proxy n8n:5678
 }

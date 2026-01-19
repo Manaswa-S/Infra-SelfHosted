@@ -1,0 +1,31 @@
+services:
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    restart: always
+    environment:
+      DB_TYPE: ${N8N_DATABASE_DB_TYPE}
+      DB_POSTGRESDB_HOST: ${N8N_DATABASE_HOST}
+      DB_POSTGRESDB_PORT: ${N8N_DATABASE_PORT}
+      DB_POSTGRESDB_DATABASE: ${N8N_DATABASE_NAME}
+      DB_POSTGRESDB_USER: ${N8N_DATABASE_USER}
+      DB_POSTGRESDB_PASSWORD: ${N8N_DATABASE_PASSWORD}
+      # - 5678:5678
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - edge_net
+      - db_net
+      - apps_net
+
+networks:
+  edge_net:
+    external: true
+  apps_net:
+    external: true
+  db_net:
+    external: true
+
+volumes:
+  n8n_data:
