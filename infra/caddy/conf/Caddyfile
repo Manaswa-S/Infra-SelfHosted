@@ -33,3 +33,10 @@
 
     reverse_proxy grafana:3000
 }
+
+{$DOMAIN_GITEA} {
+    import logging gitea
+    import basicAuth
+
+    reverse_proxy gitea:3000
+}

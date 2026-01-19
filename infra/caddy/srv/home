@@ -111,7 +111,9 @@
 
       <div class="links">
         <a href="https://grafana.mnswa.me" target="_blank">Grafana</a>
+        <a href="https://gitea.mnswa.me" target="_blank">Gitea</a>
       </div>
+      
 
       <footer>
         <p>Operated by MNS · No Cloud Magic · Just Servers</p>

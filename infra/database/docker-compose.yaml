@@ -1,0 +1,26 @@
+services:
+  
+  postgres:
+    image: postgres:17
+    restart: always
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      interval: 15s
+      timeout: 2s
+      retries: 3
+      start_period: 30s
+    networks:
+      - db_net
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+networks:
+  db_net:
+    external: true
+
+volumes:
+  postgres:
