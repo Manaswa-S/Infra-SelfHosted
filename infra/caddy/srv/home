@@ -110,8 +110,10 @@
       </div>
 
       <div class="links">
+        <a href="https://prometheus.mnswa.me" target="_blank">Prometheus</a>
         <a href="https://grafana.mnswa.me" target="_blank">Grafana</a>
         <a href="https://gitea.mnswa.me" target="_blank">Gitea</a>
+        <a href="https://n8n.mnswa.me" target="_blank">n8n</a>
       </div>
       
 

@@ -1,6 +1,7 @@
 {
     metrics
     admin 0.0.0.0:2019
+    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
     email {$CADDY_EMAIL}
 }
 
