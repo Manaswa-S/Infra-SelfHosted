@@ -102,12 +102,14 @@
         deployed and maintained manually for learning, control, and fun.
       </p>
 
-      <div class="status">
-        <span class="badge">Caddy</span>
-        <span class="badge">Prometheus</span>
-        <span class="badge">Grafana</span>
-        <span class="badge">Docker</span>
-      </div>
+      <p>
+        Please note, some internal sites like prometheus may not be available publically due to obvious reasons.
+      </p>
+
+      <p>
+        Also, most sites require basic authentication to mitigate bot scraping.
+        Credentials 'caddyUser' and 'caddy_auth_host_pass@2143' can be used to access those.
+      </p>
 
       <div class="links">
         <a href="https://prometheus.mnswa.me" target="_blank">Prometheus</a>
@@ -115,12 +117,10 @@
         <a href="https://gitea.mnswa.me" target="_blank">Gitea</a>
         <a href="https://n8n.mnswa.me" target="_blank">n8n</a>
       </div>
-      
 
       <footer>
         <p>Operated by MNS · No Cloud Magic · Just Servers</p>
         <a href="https://mnswa.me" style="font-weight: 500;" target="_blank">Portfolio</a>
-        <!-- <p>{{.Time}} · {{.RemoteAddr}} · {{.Host}} {{placeholder "http.request.uri.path"}}</p> -->
       </footer>
     </div>
   </div>
