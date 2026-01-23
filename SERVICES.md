@@ -1,20 +1,29 @@
-# Self-Hosted Services
+### Services & Internals
 
-This is a list of all active self-hosted services, their ports, and URLs.
+This document lists how things are actually wired together: networks, storage, and URLs'.
 
-| Service      | Port | URL                       | Notes                     |
-|-------------|------|---------------------------|---------------------------|
-| Caddy       | 443, 80  | https://host.mnswa.me     | Reverse proxy / HTTPS     |
-| Prometheus  | 9090 | https://prometheus.mnswa.me | Metrics monitoring       |
-| Grafana     | 3000 | https://grafana.mnswa.me | Dashboard visualization  |
-| Gitea       | 3090 | https://gitea.mnswa.me   | Git repositories / SCM    |
-| Node Exporter | 9100 | N/A                       | System metrics (Prometheus) |
-| PostgreSQL | 5432 | N/A                       | Common Database Instance |
+---
+> Simple by design.
+---
+> Note: All endpoints are secured via basic caddy authentication to mitigate bot scraping.
+---
+
+### Service Matrix
+
+| Service     | Category     | Internal Port(s) | Exposed Port(s)     | URL / Endpoint            | Networks Joined              | Storage |
+|------------|--------------|------------------|----------------------|---------------------------|------------------------------|---------|
+| Caddy      | Edge         | 80, 443          | 80 → 80<br>443 → 443 | -                         | edge_net                     | None    |
+| Prometheus | Monitoring   | 9090             | -                    | -                         | metrics_net                  | prometheus_data  |
+| Grafana    | Monitoring   | 3000             | -                    | https://grafana.mnswa.me  | metrics_net, edge_net        | grafana_data  |
+| Node Exporter | Monitoring | 9100            | -                    | -                         | metrics_net                  | None
+| Postgres   | Database     | 5432             | -                    | -                         | db_net                       | postgres  |
+| n8n        | Apps   | 5678             | -                    | https://n8n.mnswa.me      | apps_net, edge_net           | n8n_data |
+| Gitea      | Apps       | 3090, 22         | 22 → 2222            | https://gitea.mnswa.me    | edge_net, apps_net, db_net   | gitea_data  |
 
 ---
 
-## Notes
+### Closing note
 
-- All URLs are served via Caddy reverse proxy with HTTPS.
-- Ports listed are either internal container ports or exposed host ports.
-- Some services (like Node Exporter) are internal metrics exporters and not meant to be accessed directly.
+This setup grows organically.
+Things change when they stop making sense.
+Nothing here is sacred.

@@ -13,7 +13,7 @@ services:
       retries: 3
       start_period: 30s
     volumes:
-      - ./prometheus:/etc/prometheus
+      - prometheus_data:/etc/prometheus
     networks:
       - edge_net
       - metrics_net
@@ -66,4 +66,5 @@ networks:
     external: true
 
 volumes:
+  prometheus_data:
   grafana_data:

@@ -129,11 +129,12 @@ wait_for_stability
 start_docker
 wait_for_stability
 
-if [[ -x "./docker-networks.sh" ]]; then
-  log "Running docker-networks.sh"
-  bash ./docker-networks.sh
+if [[ -x "./networks.docker.sh" ]]; then
+  log "Running networks.docker.sh"
+  bash ./networks.docker.sh
 fi
 
+# the ordering of services matters here, database should be started before anything else.
 SERVICES=(caddy database monitoring gitea n8n)
 
 for svc in "${SERVICES[@]}"; do
