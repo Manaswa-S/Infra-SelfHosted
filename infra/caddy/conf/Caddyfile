@@ -21,9 +21,11 @@
     import logging host
     
     # templates
-    root * /srv
-    file_server browse
-    encode gzip zstd
+    # root * /srv
+    # file_server browse
+    # encode gzip zstd
+
+    redir * {$DOMAIN_INTRO_SITE} 302
 }
 
 {$DOMAIN_GRAFANA} {
