@@ -91,7 +91,6 @@ jobs:
       - name: Sync infra to EC2
         run: |
           rsync -avz \
-            --delete \
             --exclude ".git" \
             infra/ \
             ${{ secrets.EC2_USER }}@${{ secrets.EC2_SSH_HOST_IP }}:${{ secrets.EC2_TARGET_DIR }}/
