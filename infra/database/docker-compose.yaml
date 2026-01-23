@@ -2,7 +2,7 @@ services:
   
   postgres:
     image: postgres:17
-    restart: always
+    restart: on-failure:2
     container_name: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}

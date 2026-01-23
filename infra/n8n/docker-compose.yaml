@@ -3,7 +3,7 @@ services:
   n8n:
     image: docker.n8n.io/n8nio/n8n
     container_name: n8n
-    restart: always
+    restart: on-failure:2
     environment:
       DB_TYPE: ${N8N_DATABASE_DB_TYPE}
       DB_POSTGRESDB_HOST: ${N8N_DATABASE_HOST}

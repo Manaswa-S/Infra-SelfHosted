@@ -3,7 +3,7 @@ services:
   gitea:
     image: docker.gitea.com/gitea:latest
     container_name: gitea
-    restart: always
+    restart: on-failure:2
     environment:
       GITEA__database__DB_TYPE: ${GITEA_DATABASE_DB_TYPE}
       GITEA__database__HOST: ${GITEA_DATABASE_HOST}
