@@ -108,7 +108,6 @@
 
       <p>
         Also, most sites require basic authentication to mitigate bot scraping.
-        Credentials 'caddyUser' and 'caddy_auth_host_pass@2143' can be used to access those.
       </p>
 
       <div class="links">
