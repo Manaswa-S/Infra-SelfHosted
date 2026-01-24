@@ -11,7 +11,14 @@ services:
       DB_POSTGRESDB_DATABASE: ${N8N_DATABASE_NAME}
       DB_POSTGRESDB_USER: ${N8N_DATABASE_USER}
       DB_POSTGRESDB_PASSWORD: ${N8N_DATABASE_PASSWORD}
+      N8N_METRICS: ${N8N_METRICS}
       # - 5678:5678
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:5678/healthz/readiness"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     volumes:
       - n8n_data:/home/node/.n8n
     networks:

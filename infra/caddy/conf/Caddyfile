@@ -12,8 +12,20 @@
 }
 
 (basicAuth) {
-    basic_auth {
+    basicauth {
         {$CADDY_BASIC_AUTH}
+    }
+}
+
+(health_endpoint) {
+    @health path {args.1}
+    handle @health {
+        header {
+            Access-Control-Allow-Origin {args.2}
+            Access-Control-Allow-Methods GET, OPTIONS
+            Access-Control-Allow-Headers Content-Type, Authorization
+        }
+        reverse_proxy {args.0}
     }
 }
 
@@ -30,22 +42,31 @@
 
 {$DOMAIN_GRAFANA} {
     import logging grafana
-    import basicAuth
+    import health_endpoint grafana:3000 /api/health {$DOMAIN_INTRO_SITE_DOMAIN}
 
-    reverse_proxy grafana:3000
+    handle {
+        import basicAuth
+        reverse_proxy grafana:3000
+    }
 }
 
 {$DOMAIN_GITEA} {
     import logging gitea
-    import basicAuth
+    import health_endpoint gitea:3090 /api/healthz {$DOMAIN_INTRO_SITE_DOMAIN}
 
-    reverse_proxy gitea:3090
+    handle {
+        import basicAuth
+        reverse_proxy gitea:3090
+    }
 }
 
 
 {$DOMAIN_N8N} {
     import logging n8n
-    import basicAuth
+    import health_endpoint n8n:5678 /healthz/readiness {$DOMAIN_INTRO_SITE_DOMAIN}
 
-    reverse_proxy n8n:5678
+    handle {
+        import basicAuth
+        reverse_proxy n8n:5678
+    }
 }
