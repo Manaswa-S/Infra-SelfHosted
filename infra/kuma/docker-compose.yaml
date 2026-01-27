@@ -1,0 +1,31 @@
+services:
+
+  kuma:
+    image: louislam/uptime-kuma:2
+    container_name: kuma
+    restart: on-failure:2
+    # 3001
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "node -e \"require('http').get('http://127.0.0.1:3001', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))\""
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    volumes:
+      - kuma_data:/app/data
+    networks:
+      - edge_net
+      - apps_net
+
+networks:
+  edge_net:
+    external: true
+  apps_net:
+    external: true
+
+volumes:
+  kuma_data:

@@ -135,7 +135,7 @@ if [[ -x "./networks.docker.sh" ]]; then
 fi
 
 # the ordering of services matters here, database should be started before anything else.
-SERVICES=(caddy database monitoring gitea n8n)
+SERVICES=(caddy database ntfy monitoring kuma gitea n8n)
 
 for svc in "${SERVICES[@]}"; do
   run_service_group "$svc"

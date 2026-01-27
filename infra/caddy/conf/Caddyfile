@@ -18,14 +18,14 @@
 }
 
 (health_endpoint) {
-    @health path {args.1}
+    @health path {args[1]}
     handle @health {
         header {
-            Access-Control-Allow-Origin {args.2}
+            Access-Control-Allow-Origin {args[2]}
             Access-Control-Allow-Methods GET, OPTIONS
             Access-Control-Allow-Headers Content-Type, Authorization
         }
-        reverse_proxy {args.0}
+        reverse_proxy {args[0]}
     }
 }
 
@@ -68,5 +68,24 @@
     handle {
         import basicAuth
         reverse_proxy n8n:5678
+    }
+}
+
+
+{$DOMAIN_KUMA} {
+    import logging kuma
+
+    handle {
+        import basicAuth
+        reverse_proxy kuma:3001
+    }
+}
+
+
+{$DOMAIN_NTFY} {
+    import logging ntfy
+
+    handle {
+        reverse_proxy ntfy:8080
     }
 }

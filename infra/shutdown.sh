@@ -61,7 +61,7 @@ shutdown_service() {
 # =========================
 log "==== SAFE SHUTDOWN START ===="
 
-SERVICES=(caddy database monitoring gitea n8n)
+SERVICES=(n8n gitea kuma monitoring ntfy database caddy)
 
 for svc in "${SERVICES[@]}"; do
   shutdown_service "$svc"

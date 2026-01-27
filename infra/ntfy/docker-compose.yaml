@@ -1,0 +1,44 @@
+services:
+
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    restart: on-failure:2
+    environment:
+      NTFY_BASE_URL: ${NTFY_BASE_URL}
+      NTFY_LISTEN_HTTP: ${NTFY_LISTEN_HTTP}
+      TZ: ${NTFY_TZ}
+      NTFY_CACHE_FILE: ${NTFY_CACHE_FILE}
+      NTFY_AUTH_FILE: ${NTFY_AUTH_FILE}
+      NTFY_AUTH_DEFAULT_ACCESS: ${NTFY_AUTH_DEFAULT_ACCESS}
+      NTFY_ENABLE_LOGIN: ${NTFY_ENABLE_LOGIN}
+      NTFY_ENABLE_SIGNUP: ${NTFY_ENABLE_SIGNUP}
+      NTFY_AUTH_USERS: ${NTFY_AUTH_USERS}
+      NTFY_AUTH_ACCESS: ${NTFY_AUTH_ACCESS}
+      # NTFY_AUTH_TOKENS: ${NTFY_AUTH_TOKENS}
+      NTFY_BEHIND_PROXY: ${NTFY_BEHIND_PROXY}
+      NTFY_ENABLE_METRICS: ${NTFY_ENABLE_METRICS}
+      NTFY_WEB_ROOT: ${NTFY_WEB_ROOT}
+    command:
+      - serve
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    volumes:
+      - ntfy_data:/var/lib/ntfy
+    networks:
+      - edge_net
+      - apps_net
+    init: true # needed, if healthcheck is used. Prevents zombie processes
+
+networks:
+  edge_net:
+    external: true
+  apps_net:
+    external: true
+
+volumes:
+  ntfy_data:

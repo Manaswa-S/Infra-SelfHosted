@@ -2,3 +2,5 @@
 .todo
 .plans
 .commands
+*.env
+.*

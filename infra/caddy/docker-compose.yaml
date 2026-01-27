@@ -14,6 +14,8 @@ services:
       DOMAIN_GRAFANA: ${DOMAIN_GRAFANA}
       DOMAIN_GITEA: ${DOMAIN_GITEA}
       DOMAIN_N8N: ${DOMAIN_N8N}
+      DOMAIN_KUMA: ${DOMAIN_KUMA}
+      DOMAIN_NTFY: ${DOMAIN_NTFY}
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:2019/health"]
       interval: 30s

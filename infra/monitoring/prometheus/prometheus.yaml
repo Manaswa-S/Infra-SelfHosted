@@ -1,5 +1,6 @@
 global:
-  scrape_interval: 5s
+  scrape_interval: 15s
+  scrape_timeout: 10s
 
 scrape_configs:
   - job_name: "prometheus"
@@ -11,5 +12,10 @@ scrape_configs:
       - targets: ['caddy:2019']
 
   - job_name: node_exporter
+    scrape_interval: 5s
     static_configs:
       - targets: ['node_exporter:9100']
+
+  - job_name: ntfy
+    static_configs:
+      - targets: ['ntfy:8080']
