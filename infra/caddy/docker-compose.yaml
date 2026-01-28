@@ -15,10 +15,12 @@ services:
       DOMAIN_GITEA: ${DOMAIN_GITEA}
       DOMAIN_N8N: ${DOMAIN_N8N}
       DOMAIN_KUMA: ${DOMAIN_KUMA}
+      DOMAIN_KUMA_STATUS: ${DOMAIN_KUMA_STATUS}
       DOMAIN_NTFY: ${DOMAIN_NTFY}
+      DOMAIN_DOZZLE: ${DOMAIN_DOZZLE}
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:2019/health"]
-      interval: 30s
+      interval: 45s
       timeout: 5s
       retries: 3
       start_period: 30s

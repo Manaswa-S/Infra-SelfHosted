@@ -1,12 +1,16 @@
 {
     metrics
-    admin 0.0.0.0:2019
+    admin :2019
     email {$CADDY_EMAIL}
 }
 
 (logging) {
 	log {
-		output file /var/log/{args[0]}.log
+		output file /var/log/{args[0]}.log {
+            roll_size 10MiB
+			roll_keep 5
+			roll_keep_for 168h
+        }
 		format json
 	}
 }
@@ -27,6 +31,10 @@
         }
         reverse_proxy {args[0]}
     }
+}
+
+:2019 {
+    respond /health "OK" 200
 }
 
 {$DOMAIN_HOST} {
@@ -71,21 +79,34 @@
     }
 }
 
-
 {$DOMAIN_KUMA} {
     import logging kuma
-
     handle {
         import basicAuth
         reverse_proxy kuma:3001
     }
 }
 
+{$DOMAIN_KUMA_STATUS} {
+    import logging kuma
+    import health_endpoint kuma:3001 /icon.svg {$DOMAIN_INTRO_SITE_DOMAIN}
+
+    handle {
+        reverse_proxy kuma:3001
+    }
+}
 
 {$DOMAIN_NTFY} {
     import logging ntfy
-
     handle {
-        reverse_proxy ntfy:8080
+        reverse_proxy ntfy:6363
+    }
+}
+
+{$DOMAIN_DOZZLE} {
+    import logging dozzle
+    handle {
+        import basicAuth
+        reverse_proxy dozzle:8080
     }
 }

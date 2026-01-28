@@ -18,4 +18,4 @@ scrape_configs:
 
   - job_name: ntfy
     static_configs:
-      - targets: ['ntfy:8080']
+      - targets: ['ntfy:6363']

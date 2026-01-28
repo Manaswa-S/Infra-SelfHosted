@@ -22,7 +22,7 @@ services:
     command:
       - serve
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:8080/v1/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:6363/v1/health"]
       interval: 30s
       timeout: 5s
       retries: 3
